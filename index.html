@@ -3,37 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creperia</title>
-     <!-- Tailwind CSS CDN (css framework) -->
-      <link rel="icon" type="image/png" href="./img/favicon.png.jpg">
-
-    <!-- Tailwind CSS CDN (css framework) -->
+    <title>Habit Lab</title>
+    <!--  Favicon usando png -->
+    <link rel="icon" type="image/png" href="./img/favicon.png.jpg">
+    <!-- Tailwind CSS (CSS Framework)-->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
 </head>
-<body>
-     <h1>Creperia</h1>
-     <form>
-        <input id="name" placeholder="Nombre de la crepa">
+<body class="min-h-screen bg-slate-100 text-slate-900">
+    <main class="mx-auto max-w-3xl px-4 py-8">
 
-        <select id="crepafrappes">
-            <option>Crepa 1</option>
-            <option>Crepa 2</option>
-            <option>Frappes</option>
-        </select>
+        <!-- Encabezado: se agrega descripción para que el usuario entienda el proposito de nuestro desarrollo-->
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold tracking-tight">CREPERIA</h1> <!-- el tracking-tight ajusta el espaciado entre letras -->
+            <p class="mt-2 text-slate-600">
+               DELICIOSAS Y EXQUISITAS CREPAS.
+            </p>
+        </header>
 
-        <button>Agregar crepas y frappes</button>
-     </form>
-      <!--filtros -->
-        <div>
-                <button id="all">Todas</button>
-                <button id="crepe">Crepa 1</button>
-                <button id="crepes">Crepa 2</button>
-                <button id="drink">Frappes</button>
-        </div>
-        <!--lista de crepas y frappes -->
-        <div id="crepa-list"></div>
-            <!-- Aquí se mostrarán las crepas y frappes agregados -->
-             <script type="module" src="./js/app.js"></script>
+        <!-- Contenedor principal con un diseño de tarjeta para que se centre la vista del usuario en el uso de la app-->
+        <section class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <form id="habitForm" class="space-y-4">
+                <div>
+                    <label for="habitName" class="mb-1 block text-sm font-medium text-slate-700">
+                        UNTABLE Y RELLENO
+                    </label>
+                    <input 
+                        id="habitName"
+                        type="text" 
+                        placeholder="Ejemplo: mermelada y nuez"
+                        autocomplete="off"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                    >
+                </div>
+                
+                <div>
+                    <label for="habitEnergy" class="mb-1 block text-sm font-medium text-slate-700">
+                        CLASIFICACION 
+                    </label>
+
+                    <select 
+                        id="habitEnergy" 
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                    >
+                        <option value="Alta">DULCE</option>
+                        <option value="Media">SALADA</option>
+                        <option value="Baja">FRAPPE</option>
+                    </select>
+                </div>
+
+                <button 
+                    type="submit"
+                    class="w-full rounded-xl bg-slate-900 px-4 py-3 font-medium text-white transition hover:bg-slate-700">
+                    Agregar
+                </button>
+
+                <!-- Mensaje de error controlado por JavaScript (app.js)-->
+                <p id="formMessage" class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"></p>
+            </form>
+        </section>
+
+        <!-- Tablero: pequeño tablero para saber el total postres y bebidas tiene, cuantas dulces y saladas asi como cuantos frappes tiene-->
+        <section class="mt-6 grid gap-3 sm:grid-cols-3">
+            <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Total</p>
+                <p id="totalCount" class="mt-1 text-2xl font-bold">0</p>
+            </article>
+            <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Dulces y saladas</p>
+                <p id="pendingCount" class="mt-1 text-2xl font-bold">0</p>
+            </article>
+            <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Frappes</p>
+                <p id="doneCount" class="mt-1 text-2xl font-bold">0</p>
+            </article>
+        </section>
+
+        <!-- Filtros -->
+        <section class="mt-6">
+             <div class="flex flex-wrap gap-2 items-center justify-center">
+                <button 
+                    type="button"
+                    data-filter="all"
+                    class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
+                >
+                    Todos los postres y bebidas
+                </button>
+                <button 
+                    type="button"
+                    data-filter="pending"
+                    class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
+                >
+                 Dules y Saladas
+                </button>
+                <button 
+                    type="button"
+                    data-filter="done"
+                    class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
+                >Frappes
+                </button>
+            </div>
+        </section>
+
+        <!-- Lista de hábitos: se muestra la lista de habitos que el usuario ha creado, con opciones para marcar como completado o eliminar-->
+        <section class="mt-6">
+            <div id="habitList" class="space-y-3"></div>
+        </section>
+    </main> 
+    <script type="module" src="./js/app.js"></script>
 </body>
 </html>
