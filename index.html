@@ -1,11 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Creperia</title>
+     <!-- Tailwind CSS CDN (css framework) -->
+      <link rel="icon" type="image/png" href="./img/favicon.png.jpg">
+
+    <!-- Tailwind CSS CDN (css framework) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </head>
 <body>
-    
+     <h1>Creperia</h1>
+     <form>
+        <input id="name" placeholder="Nombre de la crepa">
+
+        <select id="crepa-frappes">
+            <option value="crepa1">Crepa 1</option>
+            <option value="crepa2">Crepa 2</option>
+            <option value="crepa3">frappes</option>
+        </select>
+
+        <button>Agregar crepas y frappes</button>
+     </form>
+      <!--filtros -->
+        <div>
+                <button>Todas</button>
+                <button>Crepa 1</button>
+                <button>Crepa 2</button>
+                <button>Frappes</button>
+        </div>
+        <!--lista de crepas y frappes -->
+        <div id="crepa-list"></div>
+            <!-- Aquí se mostrarán las crepas y frappes agregados -->
+             <script type="module" src="./js/app.js"></script>
 </body>
 </html>
