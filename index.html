@@ -1,138 +1,116 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crepería</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./img/favicon.jpg">
-
-    <!-- Tailwind -->
+    <title>Habit Lab</title>
+    <!--  Favicon usando png -->
+    <link rel="icon" type="image/png" href="./img/favicon.png">
+    <!-- Tailwind CSS (CSS Framework)-->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-
 <body class="min-h-screen bg-slate-100 text-slate-900">
-<main class="mx-auto max-w-3xl px-4 py-8">
+    <main class="mx-auto max-w-3xl px-4 py-8">
 
-    <!-- Encabezado -->
-    <header class="mb-8 text-center">
-        <h1 class="text-4xl font-bold tracking-tight">CREPERÍA</h1>
-        <p class="mt-2 text-slate-600">
-            Deliciosas y exquisitas crepas
-        </p>
-    </header>
+        <!-- Encabezado: se agrega descripción para que el usuario entienda el proposito de nuestro desarrollo-->
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold tracking-tight">Habit Lab</h1> <!-- el tracking-tight ajusta el espaciado entre letras -->
+            <p class="mt-2 text-slate-600">
+                Registra, organiza y da seguimiento a tus habitos diarios.
+            </p>
+        </header>
 
-    <!-- Formulario -->
-    <section class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-        <form id="habitForm" class="space-y-4">
+        <!-- Contenedor principal con un diseño de tarjeta para que se centre la vista del usuario en el uso de la app-->
+        <section class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+            <form id="habitForm" class="space-y-4">
+                <div>
+                    <label for="habitName" class="mb-1 block text-sm font-medium text-slate-700">
+                        Nombre del hábito
+                    </label>
+                    <input 
+                        id="habitName"
+                        type="text" 
+                        placeholder="Ejemplo: Leer 20 minutos"
+                        autocomplete="off"
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                    >
+                </div>
+                
+                <div>
+                    <label for="habitEnergy" class="mb-1 block text-sm font-medium text-slate-700">
+                        Nivel de energía requerido
+                    </label>
 
-            <!-- Nombre -->
-            <div>
-                <label for="habitName" class="mb-1 block text-sm font-medium text-slate-700">
-                    Producto (untable y relleno)
-                </label>
-                <input 
-                    id="habitName"
-                    name="nombre"
-                    type="text" 
-                    placeholder="Ejemplo: Nutella con fresa"
-                    required
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                    <select 
+                        id="habitEnergy" 
+                        class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                    >
+                        <option value="Alta">Alta</option>
+                        <option value="Media">Media</option>
+                        <option value="Baja">Baja</option>
+                    </select>
+                </div>
+
+                <button 
+                    type="submit"
+                    class="w-full rounded-xl bg-slate-900 px-4 py-3 font-medium text-white transition hover:bg-slate-700">
+                    Agregar hábito
+                </button>
+
+                <!-- Mensaje de error controlado por JavaScript (app.js)-->
+                <p id="formMessage" class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"></p>
+            </form>
+        </section>
+
+        <!-- Tablero: pequeño tablero para saber cuantos habitos tiene, cuantos completo y cuantos estan pendientes-->
+        <section class="mt-6 grid gap-3 sm:grid-cols-3">
+            <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Total</p>
+                <p id="totalCount" class="mt-1 text-2xl font-bold">0</p>
+            </article>
+            <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Pendientes</p>
+                <p id="pendingCount" class="mt-1 text-2xl font-bold">0</p>
+            </article>
+            <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Completados</p>
+                <p id="doneCount" class="mt-1 text-2xl font-bold">0</p>
+            </article>
+        </section>
+
+        <!-- Filtros -->
+        <section class="mt-6">
+             <div class="flex flex-wrap gap-2 items-center justify-center">
+                <button 
+                    type="button"
+                    data-filter="all"
+                    class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
                 >
-            </div>
-            
-            <!-- Tipo -->
-            <div>
-                <label for="habitEnergy" class="mb-1 block text-sm font-medium text-slate-700">
-                    Tipo
-                </label>
-
-                <select 
-                    id="habitEnergy"
-                    name="tipo"
-                    required
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                    Todos los hábitos
+                </button>
+                <button 
+                    type="button"
+                    data-filter="pending"
+                    class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
                 >
-                    <option value="dulce">DULCE</option>
-                    <option value="salada">SALADA</option>
-                    <option value="frappe">FRAPPE</option>
-                </select>
+                    Pendientes
+                </button>
+                <button 
+                    type="button"
+                    data-filter="done"
+                    class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
+                >
+                    Completados
+                </button>
             </div>
+        </section>
 
-            <!-- Botón -->
-            <button 
-                type="submit"
-                class="w-full rounded-xl bg-slate-900 px-4 py-3 font-medium text-white transition hover:bg-slate-700">
-                Agregar producto
-            </button>
-
-            <!-- Mensaje -->
-            <p id="formMessage" role="alert" class="hidden rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700"></p>
-
-        </form>
-    </section>
-
-    <!-- Contadores -->
-    <section class="mt-6 grid gap-3 sm:grid-cols-3">
-        <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
-            <p class="text-sm text-slate-500">Total</p>
-            <p id="totalCount" class="mt-1 text-2xl font-bold">0</p>
-        </article>
-
-        <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
-            <p class="text-sm text-slate-500">Dulces y Saladas</p>
-            <p id="pendingCount" class="mt-1 text-2xl font-bold">0</p>
-        </article>
-
-        <article class="rounded-2xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-200">
-            <p class="text-sm text-slate-500">Frappes</p>
-            <p id="doneCount" class="mt-1 text-2xl font-bold">0</p>
-        </article>
-    </section>
-
-    <!-- Filtros -->
-    <section class="mt-6">
-        <div class="flex flex-wrap gap-2 items-center justify-center">
-
-            <button 
-                type="button"
-                data-filter="all"
-                class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-300">
-                Todos
-            </button>
-
-            <button 
-                type="button"
-                data-filter="dulce"
-                class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-300">
-                Dulces
-            </button>
-
-            <button 
-                type="button"
-                data-filter="salada"
-                class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-300">
-                Saladas
-            </button>
-
-            <button 
-                type="button"
-                data-filter="frappe"
-                class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-300">
-                Frappes
-            </button>
-
-        </div>
-    </section>
-
-    <!-- Lista -->
-    <section class="mt-6">
-        <div id="habitList" class="space-y-3"></div>
-    </section>
-
-</main>
-
-<script type="module" src="./js/app.js"></script>
+        <!-- Lista de hábitos: se muestra la lista de habitos que el usuario ha creado, con opciones para marcar como completado o eliminar-->
+        <section class="mt-6">
+            <div id="habitList" class="space-y-3"></div>
+        </section>
+    </main> 
+    <script <script src="script.js"></script>
+</script>
 </body>
 </html>
