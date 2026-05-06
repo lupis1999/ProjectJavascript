@@ -14,9 +14,9 @@
 
         <!-- Encabezado: se agrega descripción para que el usuario entienda el proposito de nuestro desarrollo-->
         <header class="mb-8 text-center">
-            <h1 class="text-4xl font-bold tracking-tight">Habit Lab</h1> <!-- el tracking-tight ajusta el espaciado entre letras -->
+            <h1 class="text-4xl font-bold tracking-tight">Crepas</h1> <!-- el tracking-tight ajusta el espaciado entre letras -->
             <p class="mt-2 text-slate-600">
-                Registra, organiza y da seguimiento a tus habitos diarios.
+                Registros de pedidos.
             </p>
         </header>
 
@@ -25,12 +25,12 @@
             <form id="habitForm" class="space-y-4">
                 <div>
                     <label for="habitName" class="mb-1 block text-sm font-medium text-slate-700">
-                        Nombre del hábito
+                        Nombre de la crepa
                     </label>
                     <input 
                         id="habitName"
                         type="text" 
-                        placeholder="Ejemplo: Leer 20 minutos"
+                        placeholder="Ejemplo: cajeta, o nutella kiwi"
                         autocomplete="off"
                         class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
                     >
@@ -38,23 +38,23 @@
                 
                 <div>
                     <label for="habitEnergy" class="mb-1 block text-sm font-medium text-slate-700">
-                        Nivel de energía requerido
+                        Preparacion
                     </label>
 
                     <select 
                         id="habitEnergy" 
                         class="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
                     >
-                        <option value="Alta">Alta</option>
-                        <option value="Media">Media</option>
-                        <option value="Baja">Baja</option>
+                        <option value="Alta">Sencilla</option>
+                        <option value="Media">Intermedia</option>
+                        <option value="Baja">Especial</option>
                     </select>
                 </div>
 
                 <button 
                     type="submit"
                     class="w-full rounded-xl bg-slate-900 px-4 py-3 font-medium text-white transition hover:bg-slate-700">
-                    Agregar hábito
+                    Agregar crepa
                 </button>
 
                 <!-- Mensaje de error controlado por JavaScript (app.js)-->
@@ -86,7 +86,7 @@
                     data-filter="all"
                     class="filter-btn rounded-full border bg-slate-200 border-slate-300 px-4 py-2 text-sm font-medium transition hover:bg-slate-300"
                 >
-                    Todos los hábitos
+                    Todos las crepas
                 </button>
                 <button 
                     type="button"
